@@ -1,0 +1,12 @@
+language: node_js
+node_js: node
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: heroku
+  api_key:
+    secure: XAWH7vYh+H8sr1uNXPpaQoX3rhOO3VdduL7bjBCpq976MWrxnUyQlgxxujuYHo+Lkd6JJ/A6NNOD/l+Hd4/1icIjkeZ5HgAaZZ7iURxpxfjsH0fAgMOytuitP93+pnKVegZvixkTt7Tmk8fw23XpPTvo8rnZcOA96FGc0K4u7Lgg2T4uBQPQq2AZ2D5X7AB+CgmRC8l52V9b5rowaBKBzNhSCsbH4YvYZbN5QpUoDX8AFcmcN1mWXAkfsn32UMFMx1ezus6gAgDDkNnTbhkJw9Vbnpch27dxtizWCMOZ1gO9WmZ9BiMzkQGsCgqlk5kITYt5nCvcpLMJ564wOMTbvJlgEnOSzfMUbiyKfuTdGQyPyYrRg4rQbj4LxG/6IZ6fSZPQIMkBOU6+zAl6hkANpfL5cT9rDr5OtEDDbSXcH4muW/3okx4gCog3nBJUgMpVCINi1CWUjJz6z8dH2zaQBbPZfn/guZKhod8zC9ptRYIkrtTlM9vuMiU3/HUg76bQd3pnhNPpRZlFEK0eYdcq4reTgax9Mcv+6azuCG1Xwgm30CpvOCcbxm6/tUPekzlTyK8gsxIHOe/kDDDAkfe7SQC8Rqs3RLwzwugnpVVLrdwaQV/JLpwISGraLNA04+i+jRgktYhkdU8lBJIXaYNMRHyT2noDPAi0LarJPA5vvV4=
+  app: calm-badlands-22568
+  on:
+    repo: pocketcalculator/drawstrawsforbeerandsnacks-client
