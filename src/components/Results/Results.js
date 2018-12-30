@@ -3,18 +3,27 @@ import React from "react"
 import './Results.css'
 
 const Results = ( props ) => {
+
   const displayResults = props.data.map( (previousWeeksResults, index) => {
     let players = previousWeeksResults.players.map( player => {
       return (
-        <p>{player.username}</p>
+        player.username
       )
     })
+    let winner = previousWeeksResults.players.find( player => {
+      return previousWeeksResults.winner === player.username
+    })
+    console.log(winner)
     return (
-      <div key={index}>For week {previousWeeksResults.week}, {players} played.</div>
+      <div className="Results" key={index}>
+        <p>For week {previousWeeksResults.week}, players were: {players.join(", ")}.  The winner was {previousWeeksResults.winner}.</p>
+        <p>The group enjoyed {winner.beerBrand} {winner.beerRelease}, {winner.snackBrand} {winner.snackRelease} and watched {winner.entertainment}.</p>
+      </div>
     )
   })
+
   return (
-      <div className="Results">
+      <div>
         {displayResults}
       </div>
   )

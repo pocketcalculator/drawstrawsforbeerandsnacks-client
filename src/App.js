@@ -20,7 +20,7 @@ class App extends Component {
     archivedData: [
       { id: 'a123',
         week: 49,
-        winner: '',
+        winner: 'rick',
         players: [
           {
             username: 'rick',
@@ -46,7 +46,7 @@ class App extends Component {
       },
       { id: 'a124',
         week: 50,
-        winner: '',
+        winner: 'dave',
         players: [
           {
             username: 'dave',
