@@ -3,21 +3,36 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 
 import Home from "./components/Home"
-import Draw from "./components/Draw"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Results from "./components/Results/Results"
 import Status from "./components/Status/Status"
+import Draw from "./components/Draw/Draw.js"
 import Error from "./components/Error"
 import Navigation from "./components/Navigation"
 
 class App extends Component {
 
   state = {
-    straws: '',
-    players: {},
-    newGame: true,
-    archivedData: [
+    newGame: false,
+    currentGame: {
+      id: '',
+      week: 52,
+      straws: [19, 10, 50, 33, 21, 5, 99, 61, 75],
+      players: [
+        {
+          username: '',
+          strawdrawn: '',
+          strawlength: '',
+          beerRelease: '',
+          beerBrand: '',
+          snackRelease: '',
+          snackBrand: '',
+          entertainment: ''
+        }
+      ]
+    },
+    archivedGames: [
       { id: 'a123',
         week: 49,
         winner: 'rick',
@@ -73,8 +88,47 @@ class App extends Component {
     ]
   }
 
+  strawClickHandler = () => {
+    let username = 'paul'
+    console.log('strawClickHandler invoked!')
+    let players = [...this.state.currentGame.players]
+    let currentPlayer = {
+      username: username,
+      strawdrawn: 1,
+      strawlength: this.state.currentGame.straws[0],
+      beerRelease: "",
+      beerBrand: "",
+      snackRelease: "",
+      snackBrand: "",
+      entertainment: ""
+    }
+    players.push(currentPlayer)
+    this.setState(
+      { currentGame:
+            { players: players }
+      }
+    )
+  }
+/*
+  startGame = () => {
+    if (this.state.newGame === true) {
+      this.createStraws()
+      this.setState({newGame: false})
+    }
+  }
+*/
+/*
+  createStraws = () => {
+    console.log('creating 9 random length straws...')
+    let randomStraws = [...this.state.currentGame.straws]
+    for (let i = 0; i < 9; i++) {
+      randomStraws[i] = Math.floor((Math.random() * 1000) + 1)
+    }
+    return randomStraws
+  }
+*/
+
   render() {
-    console.log(this.state.straws)
     return (
       <div>
         <Navbar />
@@ -83,17 +137,18 @@ class App extends Component {
             <Navigation />
             <Switch>
               <Route path="/" component={Home} exact />
-              <Route path="/draw" component={Draw} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route
+                path="/draw"
+                render={(props) => <Draw clicked={() => this.strawClickHandler()} />}
+              />
+              <Route
                 path="/results"
-//              component={Results}
-                render={(props) => <Results data={this.state.archivedData} />}
+                render={(props) => <Results data={this.state.archivedGames} />}
               />
               <Route
                 path="/status"
-//              component={Status}
                 render={(props) => <Status newGame={this.state.newGame} />}
               />
               <Route component={Error} />
