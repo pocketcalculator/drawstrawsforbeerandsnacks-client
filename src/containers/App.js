@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
 
-import Home from "./components/Home"
-import Login from "./components/Login"
-import Register from "./components/Register"
-import Results from "./components/Results/Results"
-import Status from "./components/Status/Status"
-import Draw from "./components/Draw/Draw.js"
-import Error from "./components/Error"
-import Navigation from "./components/Navigation"
+import Navbar from '../components/Navbar/Navbar'
+import Home from "../components/Home"
+import Login from "../components/Login"
+import Register from "../components/Register"
+import Results from "../components/Results/Results"
+import Status from "../components/Status/Status"
+import Draw from "../components/Draw/Draw.js"
+import Error from "../components/Error"
+import Navigation from "../components/Navigation"
 
 class App extends Component {
 
@@ -19,18 +19,7 @@ class App extends Component {
       id: '',
       week: 52,
       straws: [19, 10, 50, 33, 21, 5, 99, 61, 75],
-      players: [
-        {
-          username: '',
-          strawdrawn: '',
-          strawlength: '',
-          beerRelease: '',
-          beerBrand: '',
-          snackRelease: '',
-          snackBrand: '',
-          entertainment: ''
-        }
-      ]
+      players: []
     },
     archivedGames: [
       { id: 'a123',
@@ -88,6 +77,12 @@ class App extends Component {
     ]
   }
 
+  formSubmitHandler = ( event ) => {
+    event.preventDefault()
+    console.log('formSubmitHandler invoked!')
+    console.log(event.target.value)
+  }
+
   strawClickHandler = () => {
     let username = 'paul'
     console.log('strawClickHandler invoked!')
@@ -96,11 +91,11 @@ class App extends Component {
       username: username,
       strawdrawn: 1,
       strawlength: this.state.currentGame.straws[0],
-      beerRelease: "",
-      beerBrand: "",
-      snackRelease: "",
-      snackBrand: "",
-      entertainment: ""
+      beerRelease: "testBeerRelease1",
+      beerBrand: "testBeerBrand1",
+      snackRelease: "testsnackRelease1",
+      snackBrand: "testsnackBrand1",
+      entertainment: "testEntertainment1"
     }
     players.push(currentPlayer)
     this.setState(
@@ -141,7 +136,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route
                 path="/draw"
-                render={(props) => <Draw clicked={() => this.strawClickHandler()} />}
+                render={(props) => <Draw submitted={(event) => this.formSubmitHandler(event)} clicked={() => this.strawClickHandler()} />}
               />
               <Route
                 path="/results"
