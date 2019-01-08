@@ -5,11 +5,12 @@ import Form from "./Form/Form"
 
 import './Draw.css'
 
-const Draw = () => {
+const Draw = (props) => {
+  console.log(props.clicked)
   return (
     <div>
       <Form />
-      <StrawBox />
+      <StrawBox clicked={() => props.clicked()}/>
     </div>
   )
 }

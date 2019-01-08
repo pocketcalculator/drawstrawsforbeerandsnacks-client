@@ -84,8 +84,8 @@ class App extends Component {
   }
 
   strawClickHandler = () => {
-    let username = 'paul'
     console.log('strawClickHandler invoked!')
+    /*
     let players = [...this.state.currentGame.players]
     let currentPlayer = {
       username: username,
@@ -103,6 +103,7 @@ class App extends Component {
             { players: players }
       }
     )
+    */
   }
 /*
   startGame = () => {
