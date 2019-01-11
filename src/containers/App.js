@@ -15,10 +15,16 @@ class App extends Component {
 
   state = {
     newGame: false,
+    submissionData: {
+      username: '',
+      strawDrawn: '',
+      beerLabel: '',
+      beerRelease: ''
+    },
     currentGame: {
       id: '',
       week: 52,
-      straws: [19, 10, 50, 33, 21, 5, 99, 61, 75],
+      straws: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       players: []
     },
     archivedGames: [
@@ -80,30 +86,35 @@ class App extends Component {
   formSubmitHandler = ( event ) => {
     event.preventDefault()
     console.log('formSubmitHandler invoked!')
-    console.log(event.target.value)
+    this.setState({submissionData: {[event.target.name]: event.target.value}})
+  }
+
+  formChangeHandler = ( event, id ) => {
+    console.log('formSubmitHandler invoked!')
+    const fieldIndex = this.state.submissionData.findIndex(field => {
+      return field.id === field
+    })
+
+    const field = {
+      ...this.state.submissionData[fieldIndex]
+    }
+
+    field.name = event.target.value
+
+    const submissionData = {...this.state.submissionData}
+    submissionData[fieldIndex] = field
+    this.setState({submissionData: submissionData})
   }
 
   strawClickHandler = () => {
     console.log('strawClickHandler invoked!')
-    /*
-    let players = [...this.state.currentGame.players]
     let currentPlayer = {
-      username: username,
-      strawdrawn: 1,
-      strawlength: this.state.currentGame.straws[0],
-      beerRelease: "testBeerRelease1",
-      beerBrand: "testBeerBrand1",
-      snackRelease: "testsnackRelease1",
-      snackBrand: "testsnackBrand1",
-      entertainment: "testEntertainment1"
+      username: 'paul',
+      strawDrawn: 1
     }
-    players.push(currentPlayer)
     this.setState(
-      { currentGame:
-            { players: players }
-      }
+      { submissionData: currentPlayer }
     )
-    */
   }
 /*
   startGame = () => {
@@ -125,6 +136,7 @@ class App extends Component {
 */
 
   render() {
+    let field
     return (
       <div>
         <Navbar />
@@ -137,7 +149,13 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route
                 path="/draw"
-                render={(props) => <Draw submitted={(event) => this.formSubmitHandler(event)} clicked={() => this.strawClickHandler()} />}
+                render={(props) => <Draw
+                  submitted={(event) => this.formSubmitHandler(event)}
+                  changed={this.formChangeHandler.bind(this, field)}
+                  strawClicked={() => this.strawClickHandler()}
+                  beerLabel={this.state.submissionData.beerLabel}
+                  beerRelease={this.state.submissionData.beerRelease}
+                  />}
               />
               <Route
                 path="/results"
@@ -145,7 +163,7 @@ class App extends Component {
               />
               <Route
                 path="/status"
-                render={(props) => <Status newGame={this.state.newGame} />}
+                render={(props) => <Status newGame={this.state.newGame} currentGame={this.state.currentGame} />}
               />
               <Route component={Error} />
             </Switch>

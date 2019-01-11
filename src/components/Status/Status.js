@@ -5,6 +5,10 @@ const Status = ( props ) => {
   let gameStatus
   if (props.newGame === true) {
     gameStatus = 'No one has entered for this week yet.  Draw a straw to get it started!'
+  } else {
+    gameStatus = (
+      props.currentGame.week
+    )
   }
   return (
     <div>

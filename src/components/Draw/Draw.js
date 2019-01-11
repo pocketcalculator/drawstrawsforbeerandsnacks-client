@@ -6,11 +6,14 @@ import Form from "./Form/Form"
 import './Draw.css'
 
 const Draw = (props) => {
-  console.log(props.clicked)
   return (
     <div>
-      <Form />
-      <StrawBox clicked={() => props.clicked()}/>
+      <Form
+        submitted={(event) => props.submitted(event)}
+        changed={(event) => props.changed(event)}
+        beerLabel={props.beerLabel}
+        beerRelease={props.beerRelease}/>
+      <StrawBox strawClicked={() => props.strawClicked()}/>
     </div>
   )
 }
