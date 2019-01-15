@@ -5,26 +5,35 @@ import './Form.css'
 const Form = ( props ) => {
   return (
     <form onSubmit={props.submitted}>
-      <label htmlFor="beerLabel">Beer Label:</label>
+      <label htmlFor="userName">username:</label>
       <input
         onChange={props.changed}
-        id="beerLabel"
-        name="beerLabel"
+        id="userName"
+        name="userName"
         type="text"
-        value={props.beerLabel}
       />
-
+      <label htmlFor="beerBrand">Beer Brand:</label>
+      <input
+        onChange={props.changed}
+        id="beerBrand"
+        name="beerBrand"
+        type="text"
+      />
       <label htmlFor="beerRelease">Beer Release:</label>
       <input
         onChange={props.changed}
         id="beerRelease"
         name="beerRelease"
         type="text"
-        value={props.beerRelease}
       />
-
+      <label htmlFor="entertainment">Entertainment:</label>
+      <input
+        onChange={props.changed}
+        id="entertainment"
+        name="entertainment"
+        type="text"
+      />
       <button>Submit This!</button>
-
   </form>
   )
 }

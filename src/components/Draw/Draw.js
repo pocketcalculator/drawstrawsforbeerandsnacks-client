@@ -10,9 +10,7 @@ const Draw = (props) => {
     <div>
       <Form
         submitted={(event) => props.submitted(event)}
-        changed={(event) => props.changed(event)}
-        beerLabel={props.beerLabel}
-        beerRelease={props.beerRelease}/>
+        changed={(event) => props.changed(event)}/>
       <StrawBox strawClicked={() => props.strawClicked()}/>
     </div>
   )

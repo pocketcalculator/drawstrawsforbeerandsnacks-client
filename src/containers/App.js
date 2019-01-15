@@ -14,28 +14,23 @@ import Navigation from "../components/Navigation"
 class App extends Component {
 
   state = {
-    newGame: false,
-    submissionData: {
-      username: '',
-      strawDrawn: '',
-      beerLabel: '',
-      beerRelease: ''
-    },
-    currentGame: {
-      id: '',
-      week: 52,
-      straws: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      players: []
-    },
+    newGame: true,
+    userName: '',
+    beerRelease: '',
+    beerBrand: '',
+    snackRelease: '',
+    snackBrand: '',
+    entertainment: '',
+    players: [],
     archivedGames: [
       { id: 'a123',
         week: 49,
         winner: 'rick',
         players: [
           {
-            username: 'rick',
-            strawdrawn: 1,
-            strawlength: 20.5,
+            userName: 'rick',
+            strawDrawn: 1,
+            strawLength: 20.5,
             beerRelease: "420 Pale Ale",
             beerBrand: "Sweetwater Brewing Company",
             snackRelease: "Baked Potato Chips",
@@ -43,7 +38,7 @@ class App extends Component {
             entertainment: "MXC"
           },
           {
-            username: 'paul',
+            userName: 'paul',
             strawdrawn: 5,
             strawlength: 11.0,
             beerRelease: "Hawskbill",
@@ -59,7 +54,7 @@ class App extends Component {
         winner: 'dave',
         players: [
           {
-            username: 'dave',
+            userName: 'dave',
             strawdrawn: 4,
             strawlength: 2.5,
             beerRelease: "Ultra",
@@ -69,7 +64,7 @@ class App extends Component {
             entertainment: "Animal House Favorite Clips"
           },
           {
-            username: 'jacque',
+            userName: 'jacque',
             strawdrawn: 8,
             strawlength: 1.2,
             beerRelease: "Rose",
@@ -86,44 +81,39 @@ class App extends Component {
   formSubmitHandler = ( event ) => {
     event.preventDefault()
     console.log('formSubmitHandler invoked!')
-    this.setState({submissionData: {[event.target.name]: event.target.value}})
+    const userSubmission= {
+      userName: this.state.userName,
+      strawdrawn: this.state.strawDrawn,
+      strawlength: this.state.strawLength,
+      beerRelease: this.state.beerRelease,
+      beerBrand: this.state.beerBrand,
+      snackRelease: this.state.snackRelease,
+      snackBrand: this.state.snackBrand,
+      entertainment: this.state.entertainment
+    }
+    let playerList = this.state.players
+    playerList.push(userSubmission)
+    this.setState({players: playerList})
+    this.setState({newGame: false})
   }
 
-  formChangeHandler = ( event, id ) => {
+  formChangeHandler = ( event ) => {
     console.log('formSubmitHandler invoked!')
-    const fieldIndex = this.state.submissionData.findIndex(field => {
-      return field.id === field
+    this.setState({
+      [event.target.name]: event.target.value
     })
-
-    const field = {
-      ...this.state.submissionData[fieldIndex]
-    }
-
-    field.name = event.target.value
-
-    const submissionData = {...this.state.submissionData}
-    submissionData[fieldIndex] = field
-    this.setState({submissionData: submissionData})
   }
 
   strawClickHandler = () => {
     console.log('strawClickHandler invoked!')
-    let currentPlayer = {
-      username: 'paul',
-      strawDrawn: 1
-    }
     this.setState(
-      { submissionData: currentPlayer }
+      {
+        strawDrawn: 1,
+        strawLength: 23
+      }
     )
   }
-/*
-  startGame = () => {
-    if (this.state.newGame === true) {
-      this.createStraws()
-      this.setState({newGame: false})
-    }
-  }
-*/
+
 /*
   createStraws = () => {
     console.log('creating 9 random length straws...')
@@ -136,7 +126,6 @@ class App extends Component {
 */
 
   render() {
-    let field
     return (
       <div>
         <Navbar />
@@ -151,19 +140,17 @@ class App extends Component {
                 path="/draw"
                 render={(props) => <Draw
                   submitted={(event) => this.formSubmitHandler(event)}
-                  changed={this.formChangeHandler.bind(this, field)}
+                  changed={this.formChangeHandler.bind(this)}
                   strawClicked={() => this.strawClickHandler()}
-                  beerLabel={this.state.submissionData.beerLabel}
-                  beerRelease={this.state.submissionData.beerRelease}
                   />}
               />
               <Route
                 path="/results"
-                render={(props) => <Results data={this.state.archivedGames} />}
+                render={(props) => <Results archivedGames={this.state.archivedGames} />}
               />
               <Route
                 path="/status"
-                render={(props) => <Status newGame={this.state.newGame} currentGame={this.state.currentGame} />}
+                render={(props) => <Status newGame={this.state.newGame} players={this.state.players} />}
               />
               <Route component={Error} />
             </Switch>

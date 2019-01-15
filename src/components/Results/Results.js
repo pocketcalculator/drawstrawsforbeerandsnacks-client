@@ -4,16 +4,15 @@ import './Results.css'
 
 const Results = ( props ) => {
 
-  const displayResults = props.data.map( (previousWeeksResults, index) => {
+  const displayResults = props.archivedGames.map( (previousWeeksResults, index) => {
     let players = previousWeeksResults.players.map( player => {
       return (
-        player.username
+        player.userName
       )
     })
     let winner = previousWeeksResults.players.find( player => {
-      return previousWeeksResults.winner === player.username
+      return previousWeeksResults.winner === player.userName
     })
-    console.log(winner)
     return (
       <div className="Results" key={index}>
         <p>For week {previousWeeksResults.week}, players were: {players.join(", ")}.  The winner was {previousWeeksResults.winner}.</p>
